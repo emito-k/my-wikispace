@@ -1,1 +1,18 @@
-<p>signup-page works!</p>
+<h1>Sign up!</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Username</label>
+    <input type="text" id="username" formControlName="username">
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" id="email" formControlName="email">
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password">
+  </div>
+  <button type="submit" [disabled]="form.invalid">Sign up</button>
+</form>
+
