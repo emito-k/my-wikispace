@@ -3,6 +3,7 @@ import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 // import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 
 @Component({
@@ -20,11 +21,18 @@ export class LoginPageComponent {
     password: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   onSubmit() {
-    // this.http.post('/api/login', this.form.value).subscribe(() => {
-    //   this.router.navigate(['/']);
-    // });.
+    const { email, password } = this.form.getRawValue();
+
+    this.authService.login(email ?? '', password ?? '').subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error logging in user: ', error);
+      }
+    });
   }
 }
