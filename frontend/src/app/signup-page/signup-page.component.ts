@@ -26,8 +26,13 @@ export class SignupPageComponent {
   onSubmit() {
     const { username, email, password } = this.form.getRawValue();
 
-    this.authService.register(email ?? '', username ?? '', password ?? '').subscribe(() => {
+    this.authService.register(email ?? '', username ?? '', password ?? '').subscribe({
+      next: () => {
       this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error registering user: ', error);
+      }
     });
   }
 
