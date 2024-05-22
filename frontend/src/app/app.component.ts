@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FirebaseService } from './shared/services/firebase.service';
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -10,30 +8,5 @@ import { FirebaseService } from './shared/services/firebase.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  WikiSpaces: any;
 
-  constructor(private firebaseService: FirebaseService) {
-    this.firebaseService.getWikiSpaces().subscribe((data) => {
-      this.WikiSpaces = data;
-      console.log(this.WikiSpaces);
-    });
-  }
-
-  createWikispace() {
-    this.firebaseService.createWikispace({}).subscribe((data) => {
-      console.log(data);
-    });
-  }
-
-  deleteWikispace(doc_id: string) {
-    this.firebaseService.deleteWikispace(doc_id).subscribe(() => {
-      console.log('Document deleted');
-    });
-  }
-
-  updateWikispace(doc_id: string) {
-    this.firebaseService.updateWikispace(doc_id, {}).subscribe(() => {
-      console.log('Document updated');
-    });
-  }
 }
