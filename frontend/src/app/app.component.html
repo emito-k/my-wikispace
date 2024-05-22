@@ -4,4 +4,11 @@
   <button (click)="deleteWikispace(wikispace.id)">Delete - {{wikispace.title}}</button>
 }
 
+<br>
+
+
+@for (wikispace of WikiSpaces; track wikispace) {
+  <button (click)="updateWikispace(wikispace.id)">Update - {{wikispace.title}}</button>
+}
+
 <router-outlet />

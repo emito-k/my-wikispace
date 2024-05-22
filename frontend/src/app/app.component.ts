@@ -30,4 +30,10 @@ export class AppComponent {
       console.log('Document deleted');
     });
   }
+
+  updateWikispace(doc_id: string) {
+    this.firebaseService.updateWikispace(doc_id, {}).subscribe(() => {
+      console.log('Document updated');
+    });
+  }
 }

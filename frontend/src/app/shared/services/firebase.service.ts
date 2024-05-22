@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { WikispaceInterface } from '../models/wikispace.interface';
 
@@ -43,6 +43,20 @@ export class FirebaseService {
 
     // Delete the document
     const promise = deleteDoc(docRef);
+    return from(promise);
+  }
+
+  updateWikispace(doc_id: string, data: any): Observable<void> {
+    const docRef = doc(this.wikiSpaces, doc_id);
+
+    // Update the document
+    data = {
+      title: 'Updated Title',
+      content: 'This is an updated test',
+      access: 'private'
+    };
+
+    const promise = setDoc(docRef, data, { merge: true });
     return from(promise);
   }
 }
