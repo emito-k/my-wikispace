@@ -1,2 +1,10 @@
-
-
+<div fxLayout="row wrap">
+  @for (wikispace of WikiSpaces; track wikispace) {
+    <app-wikispace-card [wikispace]="wikispace"></app-wikispace-card>
+  }
+  @empty {
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%;">
+      Nothing to show here
+    </div>
+  }
+</div>
