@@ -17,4 +17,10 @@ export class AppComponent {
       console.log(this.WikiSpaces);
     });
   }
+
+  createWikispace() {
+    this.firebaseService.createWikispace({}).subscribe((data) => {
+      console.log(data);
+    });
+  }
 }
