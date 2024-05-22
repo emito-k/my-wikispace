@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from '../shared/services/firebase.service';
-
+import { AuthService } from '../shared/services/auth.service';
 @Component({
   selector: 'app-home-page',
   standalone: true,
@@ -11,7 +11,7 @@ import { FirebaseService } from '../shared/services/firebase.service';
 export class HomePageComponent {
   WikiSpaces: any;
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private authService: AuthService) {
     this.firebaseService.getWikiSpaces().subscribe((data) => {
       this.WikiSpaces = data;
       console.log(this.WikiSpaces);
@@ -33,6 +33,12 @@ export class HomePageComponent {
   updateWikispace(doc_id: string) {
     this.firebaseService.updateWikispace(doc_id, {}).subscribe(() => {
       console.log('Document updated');
+    });
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      console.log('User logged out');
     });
   }
 }
