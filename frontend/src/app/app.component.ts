@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     RouterOutlet,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule],
+    MatToolbarModule,
+    RouterModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

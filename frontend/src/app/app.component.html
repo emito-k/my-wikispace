@@ -1,24 +1,27 @@
-<mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+
+
+<div class="sidebar">
+  <a class="active" routerLink="/">
+    <i class="fa fa-home" style="font-size:24px"></i>
+    Home
+  </a>
 
   @if(aS && aS.currentUserSig()) {
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>account_circle</mat-icon>
-    </button>
+    <!-- sign out -->
+    <a routerLink="/login">
+      <i class="fa fa-sign-out" style="font-size:24px"></i>
+      Sign Out
+    </a>
   }
   @else {
-    no user
+    <!-- sign in -->
+    <a routerLink="/login">
+      <i class="fa fa-sign-in" style="font-size:24px"></i>
+      Sign In
+    </a>
   }
-</mat-toolbar>
+</div>
 
-<router-outlet />
+<div class="content">
+  <router-outlet />
+</div>
