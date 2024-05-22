@@ -11,6 +11,7 @@ import { FirebaseService } from './shared/services/firebase.service';
 })
 export class AppComponent {
   WikiSpaces: any;
+
   constructor(private firebaseService: FirebaseService) {
     this.firebaseService.getWikiSpaces().subscribe((data) => {
       this.WikiSpaces = data;
@@ -21,6 +22,12 @@ export class AppComponent {
   createWikispace() {
     this.firebaseService.createWikispace({}).subscribe((data) => {
       console.log(data);
+    });
+  }
+
+  deleteWikispace(doc_id: string) {
+    this.firebaseService.deleteWikispace(doc_id).subscribe(() => {
+      console.log('Document deleted');
     });
   }
 }
