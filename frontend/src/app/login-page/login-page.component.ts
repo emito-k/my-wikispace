@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
+import axios from 'axios';
 import { Router } from '@angular/router';
 
 
@@ -19,7 +20,7 @@ export class LoginPageComponent {
     password: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   onSubmit() {
     // this.http.post('/api/login', this.form.value).subscribe(() => {
