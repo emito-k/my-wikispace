@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
+// import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-signup-page',
@@ -19,11 +21,15 @@ export class SignupPageComponent {
     password: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   onSubmit() {
-    axios.post('/api/signup', this.form.value).then(() => {
-      this.router.navigate(['/login']);
+    const { username, email, password } = this.form.getRawValue();
+
+    this.authService.register(email ?? '', username ?? '', password ?? '').subscribe(() => {
+      this.router.navigate(['/']);
     });
   }
+
+
 }
