@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FirebaseService {
   firestore = inject(Firestore);
-  wikiSpaces = collection(this.firestore, 'wikiSpaces');
+  wikiSpaces = collection(this.firestore, 'Wikispaces');
 
   constructor() { }
 
