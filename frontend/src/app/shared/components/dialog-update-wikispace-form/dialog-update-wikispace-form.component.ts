@@ -34,7 +34,7 @@ export class DialogUpdateWikispaceFormComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data:WikispaceInterface, private firebaseService: FirebaseService, private system: SystemService) {
     this.permissions = this.system.getPermissions();
     this.chosenPermission = this.permissions[0];
-    this.wikispace = data;
+    this.wikispace = {...data};
   }
 
   wikispace!: WikispaceInterface;

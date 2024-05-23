@@ -41,13 +41,8 @@ export class FirebaseService {
 
   updateWikispace(data: WikispaceInterface): Observable<void> {
     const docRef = doc(this.wikiSpaces, data.id);
-
-    // Update the document
-    data = {
-      title: 'Updated Title',
-      content: 'This is an updated test',
-      access: 'private'
-    };
+    // remove id from data
+    delete data.id;
 
     const promise = setDoc(docRef, data, { merge: true });
     return from(promise);
