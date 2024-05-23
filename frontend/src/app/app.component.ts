@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule } from '@angular/router';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,8 +22,20 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppComponent {
   aS?: AuthService;
   check: boolean = false;
-  constructor(public authService: AuthService, private dialog: MatDialog) {
+  current_wiki_id: string = '';
+
+  constructor(public authService: AuthService, private dialog: MatDialog, private router: Router) {
     this.aS = authService;
+
+    this.router.events.subscribe((val) => {
+      if (this.router.url.includes('/wiki/')) {
+        this.check = true;
+        this.current_wiki_id = this.router.url.split('/wiki/')[1];
+      }
+      else {
+        this.check = false;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -57,4 +69,5 @@ export class AppComponent {
       console.log('User logged out');
     });
   }
+
 }

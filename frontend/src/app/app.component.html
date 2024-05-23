@@ -12,15 +12,27 @@
       Guest
     }
   </a>
-  <a class="active" routerLink="/">
+  <a class="{{check ? '' : 'active' }}" routerLink="/">
     <i class="fa fa-home" style="font-size:24px"></i>
     Home
   </a>
 
-  <a routerLink="" (click)="openCreateWikispaceDialog()">
-    <i class="fa fa-plus" style="font-size:24px"></i>
-    Make space
-  </a>
+  @if (check) {
+    <a routerLink="/settings">
+      <i class="fa fa-cog" style="font-size:24px"></i>
+      Wiki settings
+    </a>
+    <a routerLink="" (click)="openCreateWikispaceDialog()">
+      <i class="fa fa-plus" style="font-size:24px"></i>
+      Create page
+    </a>
+  }
+  @else {
+    <a routerLink="" (click)="openCreateWikispaceDialog()">
+      <i class="fa fa-plus" style="font-size:24px"></i>
+      Make space
+    </a>
+  }
 
   @if(aS && aS.currentUserSig()) {
     <!-- sign out -->
