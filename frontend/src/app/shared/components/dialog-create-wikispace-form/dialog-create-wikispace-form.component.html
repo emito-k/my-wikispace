@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Create a Wiki</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Wiki Name</h3>
+  <mat-form-field>
+    <mat-label>Input</mat-label>
+    <input [(ngModel)]="title" matInput>
+  </mat-form-field>
+
+  <h3>Wiki Permissions</h3>
+  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="chosenPermission">
+  @for (permission of permissions; track permission) {
+    <mat-radio-button class="example-radio-button" [value]="permission">{{permission.name}}</mat-radio-button>
+  }
+  </mat-radio-group>
+  <div><strong>{{chosenPermission.name}}</strong>: {{chosenPermission.description}}</div>
+
+  <h3>Wiki Description</h3>
+  <mat-form-field>
+    <textarea matInput placeholder="Description" [(ngModel)]="description"></textarea>
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" (click)="createWikispace()" cdkFocusInitial>Create</button>
+</mat-dialog-actions>

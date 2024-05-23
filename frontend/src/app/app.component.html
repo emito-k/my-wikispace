@@ -1,14 +1,30 @@
 
 
 <div class="sidebar">
+
+  <a routerLink="">
+    @if(aS && aS.currentUserSig()) {
+      <i class="fa fa-user" style="font-size:24px"></i>
+      Hello {{aS.currentUserSig()?.username}}
+    }
+    @else {
+      <i class="fa fa-user" style="font-size:24px"></i>
+      Guest
+    }
+  </a>
   <a class="active" routerLink="/">
     <i class="fa fa-home" style="font-size:24px"></i>
     Home
   </a>
 
+  <a routerLink="" (click)="openCreateWikispaceDialog()">
+    <i class="fa fa-plus" style="font-size:24px"></i>
+    Make space
+  </a>
+
   @if(aS && aS.currentUserSig()) {
     <!-- sign out -->
-    <a routerLink="/login">
+    <a routerLink="/login" (click)="logout()">
       <i class="fa fa-sign-out" style="font-size:24px"></i>
       Sign Out
     </a>

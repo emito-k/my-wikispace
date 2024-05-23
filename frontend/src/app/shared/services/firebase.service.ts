@@ -16,16 +16,9 @@ export class FirebaseService {
     return collectionData(this.wikiSpaces, { idField: 'id' }) as Observable<any>;
   }
 
-  createWikispace(data: any) {
-    // dummy data
-    const wikispace: WikispaceInterface = {
-      doc_id: '1234',
-      title: 'Test',
-      content: 'This is a test',
-      access: 'public'
-    };
+  createWikispace(data: WikispaceInterface): Observable<void> {
 
-    const promise = addDoc(this.wikiSpaces, wikispace).then(
+    const promise = addDoc(this.wikiSpaces, data).then(
       (docRef) => {
         console.log('Document written with ID: ', docRef.id);
       }
@@ -46,15 +39,10 @@ export class FirebaseService {
     return from(promise);
   }
 
-  updateWikispace(doc_id: string, data: any): Observable<void> {
-    const docRef = doc(this.wikiSpaces, doc_id);
-
-    // Update the document
-    data = {
-      title: 'Updated Title',
-      content: 'This is an updated test',
-      access: 'private'
-    };
+  updateWikispace(data: WikispaceInterface): Observable<void> {
+    const docRef = doc(this.wikiSpaces, data.id);
+    // remove id from data
+    delete data.id;
 
     const promise = setDoc(docRef, data, { merge: true });
     return from(promise);
