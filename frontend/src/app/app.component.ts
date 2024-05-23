@@ -51,4 +51,10 @@ export class AppComponent {
       width: '250px',
     });
   }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      console.log('User logged out');
+    });
+  }
 }

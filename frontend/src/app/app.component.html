@@ -24,7 +24,7 @@
 
   @if(aS && aS.currentUserSig()) {
     <!-- sign out -->
-    <a routerLink="/login">
+    <a routerLink="/login" (click)="logout()">
       <i class="fa fa-sign-out" style="font-size:24px"></i>
       Sign Out
     </a>
