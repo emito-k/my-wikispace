@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd frontend/ && ls
+      - run: cd frontend/ && node setup.js ./src/environments/environment.ts
       - run: cd frontend/ && npm install --legacy-peer-deps
       - run: cd frontend/ && npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
