@@ -4,7 +4,7 @@ import { PermissionInterface } from '../models/permission.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class SystemServiceService {
+export class SystemService {
 
   constructor() { }
   permissions: PermissionInterface[] = [

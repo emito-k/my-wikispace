@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { WikispaceInterface } from '../../models/wikispace.interface';
 import { FirebaseService } from '../../services/firebase.service';
+import { SystemService } from '../../services/system.service';
 @Component({
   selector: 'app-dialog-create-wikispace-form',
   standalone: true,
@@ -23,17 +24,16 @@ import { FirebaseService } from '../../services/firebase.service';
   styleUrl: './dialog-create-wikispace-form.component.css'
 })
 export class DialogCreateWikispaceFormComponent {
-  permissions: PermissionInterface[] = [
-    { name: 'Public', description: 'Everyone can view and edit' },
-    { name: 'Protected', description: 'Everyone can view pages, only wiki members users can edit' },
-    { name: 'Private', description: 'Only wiki members can view and edit' }
-  ];
+  permissions: PermissionInterface[] = [];
 
   title = "Sample Title"
   chosenPermission: PermissionInterface = this.permissions[0];
 
   description: string = 'Sample';
-  constructor(public dialog: MatDialog, private firebaseService: FirebaseService) { }
+  constructor(public dialog: MatDialog, private firebaseService: FirebaseService, private system: SystemService) {
+    this.permissions = this.system.getPermissions();
+    this.chosenPermission = this.permissions[0];
+  }
 
   createWikispace() {
     this.firebaseService.createWikispace({
