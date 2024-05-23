@@ -40,11 +40,8 @@ export class DialogUpdateWikispaceFormComponent {
   wikispace!: WikispaceInterface;
 
   updateWikispace() {
-    this.firebaseService.updateWikispace({
-      title: this.title,
-      content: this.description,
-      access: this.chosenPermission.name
-    });
+    this.wikispace.access = this.chosenPermission.name;
+    this.firebaseService.updateWikispace(this.wikispace);
   }
 
 }
