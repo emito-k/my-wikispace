@@ -6,7 +6,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PermissionInterface } from '../../models/permission.interface';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { WikispaceInterface } from '../../models/wikispace.interface';
+import { FirebaseService } from '../../services/firebase.service';
 @Component({
   selector: 'app-dialog-create-wikispace-form',
   standalone: true,
@@ -28,8 +29,19 @@ export class DialogCreateWikispaceFormComponent {
     { name: 'Private', description: 'Only wiki members can view and edit' }
   ];
 
+  title = "Sample Title"
   chosenPermission: PermissionInterface = this.permissions[0];
 
-  description: string = '';
-  constructor(public dialog: MatDialog) { }
+  description: string = 'Sample';
+  constructor(public dialog: MatDialog, private firebaseService: FirebaseService) { }
+
+  createWikispace() {
+    this.firebaseService.createWikispace({
+      title: this.title,
+      content: this.description,
+      access: this.chosenPermission.name
+    });
+  }
+
+
 }

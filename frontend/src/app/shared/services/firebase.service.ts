@@ -16,16 +16,9 @@ export class FirebaseService {
     return collectionData(this.wikiSpaces, { idField: 'id' }) as Observable<any>;
   }
 
-  createWikispace(data: any) {
-    // dummy data
-    const wikispace: WikispaceInterface = {
-      doc_id: '1234',
-      title: 'Test',
-      content: 'This is a test',
-      access: 'public'
-    };
+  createWikispace(data: WikispaceInterface): Observable<void> {
 
-    const promise = addDoc(this.wikiSpaces, wikispace).then(
+    const promise = addDoc(this.wikiSpaces, data).then(
       (docRef) => {
         console.log('Document written with ID: ', docRef.id);
       }
