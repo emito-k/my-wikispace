@@ -67,6 +67,10 @@ export class FirebaseService {
     return from(promise);
   }
 
+  getWikis(doc_id: string): Observable<any> {
+    const wikiCollection = collection(doc(this.wikiSpaces, doc_id), 'wiki');
+    return collectionData(wikiCollection, { idField: 'id' }) as Observable<any>;
+  }
 
 
 }
