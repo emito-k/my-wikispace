@@ -8,5 +8,5 @@ export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
-  { path: 'wikispace/:wiki_id', component: WikispacePageComponent }
+  { path: 'wiki/:wiki_id', component: WikispacePageComponent }
 ];

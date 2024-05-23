@@ -10,12 +10,12 @@
     <mat-divider></mat-divider>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-icon-button>
+    <button [routerLink]="['wiki', wikispace.id]" mat-icon-button>
       <mat-icon>
         open_in_new
       </mat-icon>
       </button>
-    <button (click)="deleteWikispace(wikispace.id ?? '')" mat-icon-button>
+    <button (click)="openDeleteDialog()" mat-icon-button>
       <mat-icon>delete</mat-icon>
     </button>
     <button (click)="openUpdateDialog()" mat-icon-button>
