@@ -15,4 +15,5 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 })
 export class WikispacesFeedComponent {
   @Input() WikiSpaces: WikispaceInterface[] = [];
+  @Input({ required: true }) wiki_id: string = '';
 }

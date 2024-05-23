@@ -24,9 +24,11 @@ import { FormsModule } from '@angular/forms';
 export class WikispacePageComponent {
   wikis : WikiInterface[] = [];
   value = '';
+  wiki_id = '';
   constructor(private firebaseService: FirebaseService, private router: ActivatedRoute) {
-    const wiki_id = this.router.snapshot.paramMap.get('wiki_id');
-    this.firebaseService.getWikis(wiki_id ?? '').subscribe(
+    this.wiki_id = this.router.snapshot.paramMap.get('wiki_id') ?? '';
+
+    this.firebaseService.getWikis(this.wiki_id).subscribe(
       (wikis) => {
         this.wikis = wikis;
       }

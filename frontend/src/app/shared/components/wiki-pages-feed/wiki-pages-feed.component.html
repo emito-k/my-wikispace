@@ -1,6 +1,6 @@
 <div fxLayout="row wrap">
   @for (wiki of wikis; track wiki) {
-    <app-wiki-page-card [wiki]="wiki"></app-wiki-page-card>
+    <app-wiki-page-card [wiki]="wiki" [wiki_id]="wiki_id"></app-wiki-page-card>
   }
   @empty {
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%;">

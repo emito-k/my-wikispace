@@ -1,1 +1,6 @@
-<p>dialog-delete-wiki-page-sure works!</p>
+<h2 mat-dialog-title>Delete Wiki page</h2>
+<mat-dialog-content>Are you sure you want to delete {{wiki.title}}?</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="deleteWikispace()" mat-dialog-close color="warn">Yes</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
+</mat-dialog-actions>
