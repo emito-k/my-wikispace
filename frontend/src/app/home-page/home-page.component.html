@@ -1,16 +1,25 @@
+<mat-form-field class="example-form example-full-width" width="100%">
+  <mat-label>Clearable input</mat-label>
+  <input matInput type="text" [(ngModel)]="value">
+  @if (value) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>
+
+
 
 <button (click)="logout()">Logout</button>
 <br>
 
 <button (click)="createWikispace()">Create</button>
 
-@for (wikispace of WikiSpaces; track wikispace) {
-  <button (click)="deleteWikispace(wikispace.id)">Delete - {{wikispace.title}}</button>
-}
+<!-- @for (wikispace of WikiSpaces; track wikispace) { -->
+  <!-- <button (click)="deleteWikispace(wikispace.id)">Delete - {{wikispace.title}}</button> -->
+
+  <app-wikispaces-feed [WikiSpaces]="WikiSpaces"></app-wikispaces-feed>
+<!-- } -->
 
 <br>
 
-
-@for (wikispace of WikiSpaces; track wikispace) {
-  <button (click)="updateWikispace(wikispace.id)">Update - {{wikispace.title}}</button>
-}
