@@ -4,7 +4,8 @@ import { AuthService } from './shared/services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { DialogCreateWikispaceFormComponent } from './shared/components/dialog-create-wikispace-form/dialog-create-wikispace-form.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,7 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 export class AppComponent {
   aS?: AuthService;
   check: boolean = false;
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private dialog: MatDialog) {
     this.aS = authService;
   }
 
@@ -41,6 +42,13 @@ export class AppComponent {
       }
 
       console.log(this.authService.currentUserSig());
+    });
+  }
+
+  openCreateWikispaceDialog() {
+    console.log('Opening create wikispace dialog');
+    const dialogRef = this.dialog.open(DialogCreateWikispaceFormComponent, {
+      width: '250px',
     });
   }
 }
