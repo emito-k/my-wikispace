@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DialogCreateWikispaceFormComponent } from './shared/components/dialog-create-wikispace-form/dialog-create-wikispace-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FirebaseService } from './shared/services/firebase.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -24,7 +25,7 @@ export class AppComponent {
   check: boolean = false;
   current_wiki_id: string = '';
 
-  constructor(public authService: AuthService, private dialog: MatDialog, private router: Router) {
+  constructor(public authService: AuthService, private dialog: MatDialog, private router: Router, private firebaseService: FirebaseService) {
     this.aS = authService;
 
     this.router.events.subscribe((val) => {
@@ -61,6 +62,15 @@ export class AppComponent {
     console.log('Opening create wikispace dialog');
     const dialogRef = this.dialog.open(DialogCreateWikispaceFormComponent, {
       width: '250px',
+    });
+  }
+
+  createWikiPage() {
+    this.firebaseService.createWiki(this.current_wiki_id, {
+      title: 'New Wiki Page',
+      content: 'This is a new wiki page'
+    }).subscribe(() => {
+      console.log('Document created');
     });
   }
 
