@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { WikispacesFeedComponent } from '../shared/components/wikispaces-feed/wikispaces-feed.component';
 
 @Component({
   selector: 'app-home-page',
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    WikispacesFeedComponent
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
