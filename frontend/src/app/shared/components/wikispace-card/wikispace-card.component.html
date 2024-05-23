@@ -18,7 +18,7 @@
     <button (click)="deleteWikispace(wikispace.id ?? '')" mat-icon-button>
       <mat-icon>delete</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button (click)="openUpdateDialog()" mat-icon-button>
       <mat-icon>settings</mat-icon>
     </button>
   </mat-card-actions>

@@ -6,6 +6,8 @@ import {MatCardModule} from '@angular/material/card';
 import { WikispaceInterface } from '../../models/wikispace.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { FirebaseService } from '../../services/firebase.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogUpdateWikispaceFormComponent } from '../dialog-update-wikispace-form/dialog-update-wikispace-form.component';
 
 @Component({
   selector: 'app-wikispace-card',
@@ -23,11 +25,17 @@ import { FirebaseService } from '../../services/firebase.service';
 export class WikispaceCardComponent {
   @Input({ required: true }) wikispace!: WikispaceInterface;
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService, private dialog: MatDialog) { }
 
   deleteWikispace(doc_id: string) {
     this.firebaseService.deleteWikispace(doc_id).subscribe(() => {
       console.log('Document deleted');
+    });
+  }
+
+  openUpdateDialog() {
+    this.dialog.open(DialogUpdateWikispaceFormComponent, {
+      data: this.wikispace
     });
   }
 }
