@@ -72,5 +72,23 @@ export class FirebaseService {
     return collectionData(wikiCollection, { idField: 'id' }) as Observable<any>;
   }
 
+  createWiki(doc_id: string, data: WikiInterface): Observable<void> {
+    const wikiCollection = collection(doc(this.wikiSpaces, doc_id), 'wiki');
+    const promise = addDoc(wikiCollection, data).then(() => {});
+    return from(promise);
+  }
+
+  deleteWiki(doc_id: string, wiki_id: string): Observable<void> {
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${wiki_id}`);
+    const promise = deleteDoc(wikiDoc);
+    return from(promise);
+  }
+
+  updateWiki(doc_id: string, data: WikiInterface): Observable<void> {
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${data.id}`);
+    delete data.id;
+    const promise = setDoc(wikiDoc, data, { merge: true });
+    return from(promise);
+  }
 
 }
