@@ -39,8 +39,8 @@ export class FirebaseService {
     return from(promise);
   }
 
-  updateWikispace(doc_id: string, data: any): Observable<void> {
-    const docRef = doc(this.wikiSpaces, doc_id);
+  updateWikispace(data: WikispaceInterface): Observable<void> {
+    const docRef = doc(this.wikiSpaces, data.id);
 
     // Update the document
     data = {

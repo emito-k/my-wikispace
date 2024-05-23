@@ -39,12 +39,6 @@ export class HomePageComponent {
     });
   }
 
-  updateWikispace(doc_id: string) {
-    this.firebaseService.updateWikispace(doc_id, {}).subscribe(() => {
-      console.log('Document updated');
-    });
-  }
-
   logout() {
     this.authService.logout().subscribe(() => {
       console.log('User logged out');
