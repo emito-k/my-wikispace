@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { WikispaceInterface } from '../models/wikispace.interface';
+import { WikiInterface } from '../models/wiki.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,28 @@ export class FirebaseService {
   }
 
   createWikispace(data: WikispaceInterface): Observable<void> {
+    // add document in wikispaces
 
     const promise = addDoc(this.wikiSpaces, data).then(
       (docRef) => {
         console.log('Document written with ID: ', docRef.id);
+        // add subcollection in wikispace within
+        const wikiCollection = collection(doc(this.wikiSpaces, docRef.id), 'wiki');
+
+        const wikiData: WikiInterface = {
+          title: 'Tutorial',
+          content: 'Welcome to your new wiki space'
+        };
+
+        addDoc(wikiCollection, wikiData).then(
+          (docRef) => {
+            console.log('Document written with ID: ', docRef.id);
+          }
+        ).catch(
+          (error) => {
+            console.error('Error adding document: ', error);
+          }
+        );
       }
     ).catch(
       (error) => {
@@ -47,4 +66,7 @@ export class FirebaseService {
     const promise = setDoc(docRef, data, { merge: true });
     return from(promise);
   }
+
+
+
 }
