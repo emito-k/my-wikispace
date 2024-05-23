@@ -27,3 +27,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .example-radio-button {
   margin: 5px;
 }
+
+.example-card {
+  width: 265px;
+  height: 175px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
