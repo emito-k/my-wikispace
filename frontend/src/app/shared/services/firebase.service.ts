@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { WikispaceInterface } from '../models/wikispace.interface';
+import { WikiInterface } from '../models/wiki.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,28 @@ export class FirebaseService {
   }
 
   createWikispace(data: WikispaceInterface): Observable<void> {
+    // add document in wikispaces
 
     const promise = addDoc(this.wikiSpaces, data).then(
       (docRef) => {
         console.log('Document written with ID: ', docRef.id);
+        // add subcollection in wikispace within
+        const wikiCollection = collection(doc(this.wikiSpaces, docRef.id), 'wiki');
+
+        const wikiData: WikiInterface = {
+          title: 'Tutorial',
+          content: 'Welcome to your new wiki space'
+        };
+
+        addDoc(wikiCollection, wikiData).then(
+          (docRef) => {
+            console.log('Document written with ID: ', docRef.id);
+          }
+        ).catch(
+          (error) => {
+            console.error('Error adding document: ', error);
+          }
+        );
       }
     ).catch(
       (error) => {
@@ -47,4 +66,29 @@ export class FirebaseService {
     const promise = setDoc(docRef, data, { merge: true });
     return from(promise);
   }
+
+  getWikis(doc_id: string): Observable<any> {
+    const wikiCollection = collection(doc(this.wikiSpaces, doc_id), 'wiki');
+    return collectionData(wikiCollection, { idField: 'id' }) as Observable<any>;
+  }
+
+  createWiki(doc_id: string, data: WikiInterface): Observable<void> {
+    const wikiCollection = collection(doc(this.wikiSpaces, doc_id), 'wiki');
+    const promise = addDoc(wikiCollection, data).then(() => {});
+    return from(promise);
+  }
+
+  deleteWiki(doc_id: string, wiki_id: string): Observable<void> {
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${wiki_id}`);
+    const promise = deleteDoc(wikiDoc);
+    return from(promise);
+  }
+
+  updateWiki(doc_id: string, data: WikiInterface): Observable<void> {
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${data.id}`);
+    delete data.id;
+    const promise = setDoc(wikiDoc, data, { merge: true });
+    return from(promise);
+  }
+
 }

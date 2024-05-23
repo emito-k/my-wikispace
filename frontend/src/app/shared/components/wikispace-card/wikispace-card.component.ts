@@ -27,6 +27,7 @@ import { DialogDeleteSureComponent } from '../dialog-delete-sure/dialog-delete-s
 })
 export class WikispaceCardComponent {
   @Input({ required: true }) wikispace!: WikispaceInterface;
+  @Input({ required: true }) wiki_id!: string;
 
   constructor(private firebaseService: FirebaseService, private dialog: MatDialog) { }
 
