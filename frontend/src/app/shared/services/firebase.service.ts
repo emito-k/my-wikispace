@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc, onSnapshot } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { WikispaceInterface } from '../models/wikispace.interface';
 import { WikiInterface } from '../models/wiki.interface';
@@ -72,6 +72,18 @@ export class FirebaseService {
     return collectionData(wikiCollection, { idField: 'id' }) as Observable<any>;
   }
 
+  getWiki(doc_id: string, wiki_id: string): Observable<any> {
+    // use on snapshot
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${wiki_id}`);
+    const promise = new Observable((observer) => {
+      onSnapshot(wikiDoc, (doc) => {
+        observer.next(doc.data());
+      });
+    });
+
+    return promise;
+  }
+
   createWiki(doc_id: string, data: WikiInterface): Observable<void> {
     const wikiCollection = collection(doc(this.wikiSpaces, doc_id), 'wiki');
     const promise = addDoc(wikiCollection, data).then(() => {});
@@ -85,10 +97,13 @@ export class FirebaseService {
   }
 
   updateWiki(doc_id: string, data: WikiInterface): Observable<void> {
+    console.log('updateWiki', `${doc_id}/wiki/${data.id}`);
+
     const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${data.id}`);
     delete data.id;
     const promise = setDoc(wikiDoc, data, { merge: true });
     return from(promise);
   }
+
 
 }
