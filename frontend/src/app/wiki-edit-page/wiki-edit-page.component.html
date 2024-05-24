@@ -1,1 +1,20 @@
-<p>wiki-edit-page works!</p>
+Hello Malaylay, I like the number {{ counter }}
+
+<button (click)="increment()">
+  Increment to
+  @if(counter % 2 === 0) {
+    Odd
+  }
+  @else {
+    Even
+  }
+</button>
+
+<ul>
+  @for (thing of things; track thing) {
+  <li>
+    {{ thing }}
+  </li>
+}
+</ul>
+

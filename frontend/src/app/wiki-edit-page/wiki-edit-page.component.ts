@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './wiki-edit-page.component.css'
 })
 export class WikiEditPageComponent {
+  counter = 0;
 
+  things = ['thing1', 'thing2', 'thing3'];
+
+  increment() {
+    this.counter++;
+  }
 }
