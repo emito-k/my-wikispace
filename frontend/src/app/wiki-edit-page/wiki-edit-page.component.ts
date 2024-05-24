@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
@@ -6,6 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../shared/services/firebase.service';
 import { WikiInterface } from '../shared/models/wiki.interface';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc, getDoc } from '@angular/fire/firestore';
+import { User } from '@angular/fire/auth';
+import { AuthService } from '../shared/services/auth.service';
+import { UserInterface } from '../shared/models/user.interface';
 
 
 @Component({
@@ -24,7 +27,10 @@ export class WikiEditPageComponent {
   wiki_id!: string;
   wiki_page_id!: string;
 
-  constructor(private router: ActivatedRoute, private firebaseService: FirebaseService) {
+  users: UserInterface[] = [];
+  user?: UserInterface;
+
+  constructor(private router: ActivatedRoute, private firebaseService: FirebaseService, private authService: AuthService) {
     // { path: 'wiki/:wiki_id/w/:wiki_page_id', component: WikiEditPageComponent }
     this.router.params.subscribe((params) => {
       // get wiki_id and wiki_page_id from params
@@ -35,6 +41,9 @@ export class WikiEditPageComponent {
       this.firebaseService.getWiki(this.wiki_id, this.wiki_page_id).subscribe((wiki) => {
         console.log('change!');
         this.wiki = wiki;
+        console.log(this.authService.currentUserSig());
+        this.addUserAsCollaborator(this.authService.currentUserSig());
+        this.getCollaborators();
       });
     });
   }
@@ -49,5 +58,45 @@ export class WikiEditPageComponent {
         console.log('Wiki updated');
       });
     }
+  }
+
+  addUserAsCollaborator(user: UserInterface | null | undefined) {
+    if (user && this.wiki) {
+      this.firebaseService.addCollaborator(this.wiki_id, this.wiki_page_id, user).subscribe(() => {
+        console.log('User added as collaborator');
+      });
+    }
+    else {
+      console.log('User not added as collaborator');
+    }
+  }
+
+  removeUserAsCollaborator(user: UserInterface | null | undefined) {
+    if (user && this.wiki) {
+      this.firebaseService.removeCollaborator(this.wiki_id, this.wiki_page_id, user).subscribe(() => {
+        console.log('User removed as collaborator');
+      });
+    }
+    else {
+      console.log('User not removed as collaborator');
+    }
+  }
+
+  getCollaborators() {
+    if (this.wiki) {
+      this.firebaseService.getCollaborators(this.wiki_id, this.wiki_page_id).subscribe((users) => {
+        this.users = users;
+      });
+    }
+  }
+
+  // call function when page is closed
+  ngOnDestroy() {
+    this.removeUserAsCollaborator(this.authService.currentUserSig());
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHander(event: any) {
+    this.removeUserAsCollaborator(this.authService.currentUserSig());
   }
 }

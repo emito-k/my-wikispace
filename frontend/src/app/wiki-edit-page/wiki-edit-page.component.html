@@ -10,6 +10,23 @@
       <textarea (input)="updateWiki()" [(ngModel)]="wiki.content" name="content" matInput placeholder="Ex. It makes me feel..."></textarea>
     </mat-form-field>
   </form>
+
+  <h2>
+    Collaborators
+  </h2>
+
+  <ul>
+    @for (collaborator of users; track collaborator) {
+      <li>
+        {{ collaborator.username }}
+      </li>
+    }
+    @empty {
+      <li>
+        No collaborators
+      </li>
+    }
+  </ul>
 }
 @else {
   <div class="example-full-width">

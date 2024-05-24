@@ -3,6 +3,8 @@ import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc, 
 import { Observable, from } from 'rxjs';
 import { WikispaceInterface } from '../models/wikispace.interface';
 import { WikiInterface } from '../models/wiki.interface';
+import { User } from '@angular/fire/auth';
+import { UserInterface } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -98,12 +100,34 @@ export class FirebaseService {
 
   updateWiki(doc_id: string, data: WikiInterface): Observable<void> {
     console.log('updateWiki', `${doc_id}/wiki/${data.id}`);
-
     const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${data.id}`);
     delete data.id;
     const promise = setDoc(wikiDoc, data, { merge: true });
     return from(promise);
   }
 
+  // function that creates a document inside the collaborators subcollection of the wiki document
+  // it just has the user name received from authservice
+  // it gets called when the user enters the wiki and another function to remove the user from the collaborator
+  // collaborator is someone actively editing the wiki
+  addCollaborator(doc_id: string, wiki_id: string, user: UserInterface): Observable<void> {
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${wiki_id}/collaborators/${user.uid}`);
+    const promise = setDoc(wikiDoc, user);
+    return from(promise);
+  }
 
+  removeCollaborator(doc_id: string, wiki_id: string, user: UserInterface): Observable<void> {
+    const wikiDoc = doc(this.wikiSpaces, `${doc_id}/wiki/${wiki_id}/collaborators/${user.uid}`);
+    const promise = deleteDoc(wikiDoc);
+    return from(promise);
+  }
+
+  getCollaborators(doc_id: string, wiki_id: string): Observable<any> {
+    // collaborators collection
+    const collaboratorsCollection = collection(doc(this.wikiSpaces, `${doc_id}/wiki/${wiki_id}`), 'collaborators');
+    console.log('getCollaborators');
+    console.log( collaboratorsCollection);
+    return collectionData(collaboratorsCollection) as Observable<any>;
+
+  }
 }
