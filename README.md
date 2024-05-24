@@ -8,7 +8,7 @@ Welcome to the Wikispace Clone project! This project is for COS 730 and it aims 
   - [Technical Installation Guide](#technical-installation-guide)
   - [Deployment Model](#deployment-model)
   - [User Manual](#user-manual)
-- [Features](#features)
+- [Features](#new-features-added-for-wikispace)
 - [Git Strategy](#git-strategy)
 - [Author](#cos-730)
 
@@ -18,15 +18,15 @@ The Wikispace Clone project is designed to provide a robust and user-friendly pl
 
 ## Documentation
 - [Technical Installation Guide](https://docs.google.com/document/d/1bfyT-MER5RZ7ysPO_pqfO9D8q7jhPEv7jgQ10VajuME/edit?usp=sharing): A comprehensive guide on how to install and set up the Wikispace Clone on your local machine or server.
-- [Deployment Model](https://drive.google.com/file/d/1BzT27KnPgTNAyD1SGf34XakiDJBw4k9e/view?usp=sharing): Detailed documentation on the deployment model of the Wikispace Clone
+- [Deployment Model](https://drive.google.com/file/d/1tSeEI-oHonKWIpvjpsx7B4r0sXlQvXol/view?usp=drive_link): Detailed documentation on the deployment model of the Wikispace Clone
 - [User Manual](https://docs.google.com/document/d/1vJx7Zwuf20gOiS9A3Ld-l9QjIVWOkTR9hkh7xnvh5VI/edit?usp=sharing): A user-friendly manual that covers all the features and functionalities of the Wikispace Clone, helping users to get the most out of the platform.
 
 ## New Features Added for Wikispace
 
 - **Real-Time Editing:** Collaborate on documents in real-time with multiple users.
 <!-- - **Version Control:** Track changes and revert to previous versions of documents. -->
-- **User Management:** Manage user roles and permissions effectively.
-- **Document Sharing:** Easily share documents with individuals or groups.
+<!-- - **User Management:** Manage user roles and permissions effectively. -->
+<!--- **Document Sharing:** Easily share documents with individuals or groups. -->
 <!-- - **Rich Text Editing:** Create and edit documents with a full-featured rich text editor. -->
 <!-- - **Search Functionality:** Quickly find documents and content with a powerful search engine. -->
 
