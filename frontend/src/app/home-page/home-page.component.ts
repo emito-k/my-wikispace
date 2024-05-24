@@ -33,21 +33,9 @@ export class HomePageComponent {
     });
   }
 
-  createWikispace() {
-    this.firebaseService.createWikispace({}).subscribe((data) => {
-      console.log(data);
-    });
-  }
-
   deleteWikispace(doc_id: string) {
     this.firebaseService.deleteWikispace(doc_id).subscribe(() => {
       console.log('Document deleted');
-    });
-  }
-
-  updateWikispace(doc_id: string) {
-    this.firebaseService.updateWikispace(doc_id, {}).subscribe(() => {
-      console.log('Document updated');
     });
   }
 

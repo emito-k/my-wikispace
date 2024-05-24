@@ -1,0 +1,35 @@
+@if(wiki != null) {
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input (input)="updateWiki()" [(ngModel)]="wiki.title" name="title" matInput placeholder="Ex. People" value="Sushi">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Content</mat-label>
+      <textarea (input)="updateWiki()" [(ngModel)]="wiki.content" name="content" matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+  </form>
+
+  <h2>
+    Collaborators
+  </h2>
+
+  <ul>
+    @for (collaborator of users; track collaborator) {
+      <li>
+        {{ collaborator.username }}
+      </li>
+    }
+    @empty {
+      <li>
+        No collaborators
+      </li>
+    }
+  </ul>
+}
+@else {
+  <div class="example-full-width">
+    <h1>Wiki not found...</h1>
+  </div>
+}

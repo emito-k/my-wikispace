@@ -1,14 +1,42 @@
 
 
 <div class="sidebar">
-  <a class="active" routerLink="/">
+
+  <a routerLink="">
+    @if(aS && aS.currentUserSig()) {
+      <i class="fa fa-user" style="font-size:24px"></i>
+      Hello {{aS.currentUserSig()?.username}}
+    }
+    @else {
+      <i class="fa fa-user" style="font-size:24px"></i>
+      Guest
+    }
+  </a>
+  <a class="{{check ? '' : 'active' }}" routerLink="/">
     <i class="fa fa-home" style="font-size:24px"></i>
     Home
   </a>
 
+  @if (check) {
+    <a routerLink="/settings">
+      <i class="fa fa-cog" style="font-size:24px"></i>
+      Wiki settings
+    </a>
+    <a routerLink="#" (click)="createWikiPage()">
+      <i class="fa fa-plus" style="font-size:24px"></i>
+      Create page
+    </a>
+  }
+  @else {
+    <a routerLink="" (click)="openCreateWikispaceDialog()">
+      <i class="fa fa-plus" style="font-size:24px"></i>
+      Make space
+    </a>
+  }
+
   @if(aS && aS.currentUserSig()) {
     <!-- sign out -->
-    <a routerLink="/login">
+    <a routerLink="/login" (click)="logout()">
       <i class="fa fa-sign-out" style="font-size:24px"></i>
       Sign Out
     </a>
@@ -18,6 +46,13 @@
     <a routerLink="/login">
       <i class="fa fa-sign-in" style="font-size:24px"></i>
       Sign In
+    </a>
+
+    <!-- sign up -->
+    <a routerLink="/signup">
+      <i class="fa fa-user
+      " style="font-size:24px"></i>
+      Sign Up
     </a>
   }
 </div>

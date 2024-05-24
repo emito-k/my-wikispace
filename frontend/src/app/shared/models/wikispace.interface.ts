@@ -1,5 +1,5 @@
 export interface WikispaceInterface {
-  doc_id: string;
+  id?: string;
   title: string;
   content: string;
   access: string;
